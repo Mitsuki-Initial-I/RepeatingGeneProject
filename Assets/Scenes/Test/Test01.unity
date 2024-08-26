@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f998bc16f3f8148803a07dc9bb18fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfGenerations: 3
+  numberOfGenerations: 5
   firstDataNum: 30
 --- !u!4 &815505098
 Transform:

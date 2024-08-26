@@ -78,7 +78,7 @@ namespace RepeatingGeneProject.Test01
                     Speed = Mathf.RoundToInt(newColor.b * 100)
                 };
                 statusDataList.Add(newStats);
-                txtText += newStats.DisplayStats();
+                txtText += newStats.DisplayStats()+"\n";
             }
             WriteToFile("é¿å±1", "0ê¢ë„.txt", txtText);
             int itemNum = statusDataList.Count;
@@ -106,7 +106,7 @@ namespace RepeatingGeneProject.Test01
                             Speed = Mathf.RoundToInt(newColor.b * 100)
                         };
                         statusDataList_child.Add(childData.childStats);
-                        txtText += childData.DisplayStats();
+                        txtText += childData.DisplayStats()+"\n";
                         statusDataList.Remove(statusDataList[1]);
                         statusDataList.Remove(statusDataList[0]);
                     }
