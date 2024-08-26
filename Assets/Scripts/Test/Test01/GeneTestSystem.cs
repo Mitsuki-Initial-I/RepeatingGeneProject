@@ -2,6 +2,7 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEditor;
 namespace RepeatingGeneProject.Test01
 {
     public class GeneTestSystem : MonoBehaviour
@@ -36,7 +37,6 @@ namespace RepeatingGeneProject.Test01
             {
                 Debug.LogError("エラー: " + e.Message);
             }
-
         }
 
 
@@ -116,6 +116,8 @@ namespace RepeatingGeneProject.Test01
                 WriteToFile("実験1", $"{i+1}世代.txt", txtText);
                 txtText = "";
             }
+            // Projectウィンドウにフォーカスを当てる
+            EditorUtility.FocusProjectWindow();
         }
     }
 }
