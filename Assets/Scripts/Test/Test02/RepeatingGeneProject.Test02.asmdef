@@ -1,0 +1,14 @@
+{
+    "name": "RepeatingGeneProject.Test02",
+    "rootNamespace": "RepeatingGeneProject.Test02",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
