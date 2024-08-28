@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace RepeatingGeneProject.Test02
 {
+    /// <summary>
+    /// 人物要素
+    /// </summary>
     public class FamilyTreeNode : MonoBehaviour
     {
         public Person person;               // 対応するPersonオブジェクト

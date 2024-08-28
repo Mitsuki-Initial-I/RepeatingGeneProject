@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace RepeatingGeneProject.Test02
 {
+    /// <summary>
+    /// ‰ÆŒn}‘S‘Ì•`Ê
+    /// </summary>
     public class FamilyTree : MonoBehaviour
     {
         public GameObject nodePrefab;

@@ -7,7 +7,7 @@ namespace RepeatingGeneProject.Test02
     public class FamilyTreeDemo : MonoBehaviour
     {
         public FamilyTree familyTree;
-        public PopulationManager populationManager=new PopulationManager();
+        public PopulationManager populationManager = new PopulationManager();
 
         private void Start()
         {
