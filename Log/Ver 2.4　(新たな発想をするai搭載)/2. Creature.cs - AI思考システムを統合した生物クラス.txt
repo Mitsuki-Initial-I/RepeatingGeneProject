@@ -1,0 +1,64 @@
+using System;
+using System.Collections.Generic;
+
+public class Creature
+{
+    public float energy = 100f;
+    public float hunger = 100f;
+    public Emotion emotions;
+    public Morality morality;
+    public AIThoughtProcess thoughtProcess;
+
+    public Creature()
+    {
+        emotions = new Emotion();
+        morality = new Morality();
+        thoughtProcess = new AIThoughtProcess();
+    }
+
+    public void Update(float deltaTime, Environment environment)
+    {
+        // AIの思考プロセスを呼び出して、新しい行動を発想
+        thoughtProcess.Think(environment, this);
+
+        // 発想された行動からランダムに1つを選んで実行する
+        List<string> availableActions = thoughtProcess.GetAvailableActions();
+        string chosenAction = availableActions[new Random().Next(availableActions.Count)];
+        
+        PerformAction(chosenAction);
+    }
+
+    public void PerformAction(string action)
+    {
+        Console.WriteLine("Performing action: " + action);
+
+        // 既存の行動や新しい行動に応じた処理
+        switch (action)
+        {
+            case "Move":
+                Console.WriteLine("Moving...");
+                break;
+            case "SeekFood":
+                Console.WriteLine("Seeking food...");
+                break;
+            case "Hunt":
+                Console.WriteLine("Hunting for prey...");
+                break;
+            case "Scavenge":
+                Console.WriteLine("Scavenging for food...");
+                break;
+            case "Sleep":
+                Console.WriteLine("Sleeping...");
+                break;
+            case "Mate":
+                Console.WriteLine("Mating...");
+                break;
+            case "HelpFriend":
+                Console.WriteLine("Helping a friend...");
+                break;
+            default:
+                Console.WriteLine("Unknown action.");
+                break;
+        }
+    }
+}

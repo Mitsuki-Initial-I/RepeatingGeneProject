@@ -1,0 +1,42 @@
+using System;
+
+public class Creature
+{
+    public float energy = 100f;
+    public float hunger = 100f;
+    public Emotion emotions;
+    public Morality morality;
+
+    public Creature()
+    {
+        emotions = new Emotion();
+        morality = new Morality();
+    }
+
+    public void Update(float deltaTime, Environment environment)
+    {
+        // 環境や他の要因に応じて感情や道徳的反応を更新
+        if (environment.GetResourceAvailability() < 0.2f)
+        {
+            emotions.ReactToEvent("FoodFound");
+            morality.CommitAction("StealFood");  // 食物が足りない場合に盗む行動
+        }
+
+        // その他の更新処理
+    }
+
+    public void PerformAction(string action)
+    {
+        switch (action)
+        {
+            case "HelpFriend":
+                morality.CommitAction("HelpFriend");
+                emotions.ReactToEvent("FriendLost");
+                break;
+            case "Overeat":
+                morality.CommitAction("Overeat");
+                emotions.ReactToEvent("FoodFound");
+                break;
+        }
+    }
+}

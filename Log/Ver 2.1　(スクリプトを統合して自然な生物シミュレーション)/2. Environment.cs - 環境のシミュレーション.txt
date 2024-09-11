@@ -1,0 +1,42 @@
+using UnityEngine;
+
+public class Environment : MonoBehaviour
+{
+    public float temperature = 20f;
+    public float resourceAbundance = 1f;
+    public bool isDay = true;
+
+    private float dayNightCycleDuration = 60f;
+    private float cycleTimer = 0f;
+
+    void Update()
+    {
+        cycleTimer += Time.deltaTime;
+        if (cycleTimer >= dayNightCycleDuration)
+        {
+            isDay = !isDay;
+            cycleTimer = 0f;
+            Debug.Log(isDay ? "It's now daytime." : "It's now nighttime.");
+        }
+
+        SimulateEnvironment();
+    }
+
+    void SimulateEnvironment()
+    {
+        if (isDay)
+        {
+            temperature += 0.1f * Time.deltaTime;
+        }
+        else
+        {
+            temperature -= 0.1f * Time.deltaTime;
+        }
+        Debug.Log("Temperature: " + temperature);
+    }
+
+    public float GetResourceAvailability()
+    {
+        return resourceAbundance;
+    }
+}

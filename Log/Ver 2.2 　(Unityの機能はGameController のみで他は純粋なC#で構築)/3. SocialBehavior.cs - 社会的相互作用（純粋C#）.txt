@@ -1,0 +1,23 @@
+using System;
+
+public class SocialBehavior
+{
+    public float socialRank = 1f;
+    public bool isLeader = false;
+
+    public void InteractWith(Creature other)
+    {
+        if (isLeader)
+        {
+            Console.WriteLine("This creature is leading.");
+        }
+        else if (socialRank > other.socialRank)
+        {
+            Console.WriteLine("This creature is dominant.");
+        }
+        else
+        {
+            Console.WriteLine("This creature is submissive.");
+        }
+    }
+}

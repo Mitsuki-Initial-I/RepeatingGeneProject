@@ -1,0 +1,99 @@
+using System;
+
+public class Creature
+{
+    public float speed = 5f;
+    public float energy = 100f;
+    public float lifespan = 100f;
+    public float hunger = 100f;
+    public float sleepiness = 0f;
+    public float matingDesire = 50f;
+    public float socialRank = 1f;
+
+    private float age = 0f;
+
+    public State currentState = State.Moving;
+
+    public enum State { Idle, Moving, SeekingFood, Eating, SeekingSleep, Sleeping, Mating, Dead }
+
+    public void Update(float deltaTime, Environment environment)
+    {
+        if (currentState != State.Dead)
+        {
+            age += deltaTime;
+            if (age >= lifespan)
+            {
+                Die();
+                return;
+            }
+            HandleState(environment);
+        }
+    }
+
+    void HandleState(Environment environment)
+    {
+        switch (currentState)
+        {
+            case State.Moving:
+                Move();
+                if (hunger <= 20) currentState = State.SeekingFood;
+                else if (sleepiness >= 80) currentState = State.SeekingSleep;
+                else if (matingDesire >= 80) currentState = State.Mating;
+                break;
+            case State.SeekingFood: SeekFood(environment); break;
+            case State.Eating: Eat(); break;
+            case State.SeekingSleep: SeekSleep(); break;
+            case State.Sleeping: Sleep(); break;
+            case State.Mating: Mate(); break;
+        }
+    }
+
+    void Move()
+    {
+        Console.WriteLine("Moving...");
+    }
+
+    void SeekFood(Environment environment)
+    {
+        Console.WriteLine("Seeking food...");
+        if (environment.GetResourceAvailability() > 0.5f)
+        {
+            currentState = State.Eating;
+        }
+    }
+
+    void Eat()
+    {
+        Console.WriteLine("Eating...");
+        hunger += 50f;
+        if (hunger > 100f) hunger = 100f;
+        currentState = State.Moving;
+    }
+
+    void SeekSleep()
+    {
+        Console.WriteLine("Seeking sleep...");
+        currentState = State.Sleeping;
+    }
+
+    void Sleep()
+    {
+        Console.WriteLine("Sleeping...");
+        sleepiness = 0f;
+        energy = 100f;
+        currentState = State.Moving;
+    }
+
+    void Mate()
+    {
+        Console.WriteLine("Mating...");
+        matingDesire = 0f;
+        currentState = State.Moving;
+    }
+
+    void Die()
+    {
+        currentState = State.Dead;
+        Console.WriteLine("Creature has died.");
+    }
+}

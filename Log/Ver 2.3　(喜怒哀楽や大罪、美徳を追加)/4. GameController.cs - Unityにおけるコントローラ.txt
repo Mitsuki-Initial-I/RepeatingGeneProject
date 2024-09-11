@@ -1,0 +1,41 @@
+using UnityEngine;
+
+public class GameController : MonoBehaviour
+{
+    public Creature[] creatures;
+    public Environment environment;
+
+    void Start()
+    {
+        environment = new Environment();
+        creatures = new Creature[5];  // 5体の生物を生成
+        for (int i = 0; i < creatures.Length; i++)
+        {
+            creatures[i] = new Creature();
+        }
+    }
+
+    void Update()
+    {
+        float deltaTime = Time.deltaTime;
+
+        // 環境の更新
+        environment.Update(deltaTime);
+
+        // 各生物の状態を更新
+        foreach (Creature creature in creatures)
+        {
+            creature.Update(deltaTime, environment);
+
+            // ランダムな行動をシミュレート
+            if (Random.Range(0, 10) > 5)
+            {
+                creature.PerformAction("HelpFriend");
+            }
+            else
+            {
+                creature.PerformAction("Overeat");
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+using UnityEngine;
+
+public class SocialBehavior : MonoBehaviour
+{
+    public bool isLeader = false;
+    public float socialRank = 1f;  // 社会的な序列（1が最も低い）
+
+    void Start()
+    {
+        if (isLeader)
+        {
+            Debug.Log("This creature is the leader of the group.");
+        }
+    }
+
+    public void InteractWith(Creature other)
+    {
+        // 社会的相互作用のシミュレーション
+        if (isLeader)
+        {
+            Debug.Log("Leader is guiding the group.");
+        }
+        else if (socialRank > other.socialRank)
+        {
+            Debug.Log("This creature dominates the interaction.");
+        }
+        else
+        {
+            Debug.Log("This creature submits to the higher rank.");
+        }
+    }
+}
