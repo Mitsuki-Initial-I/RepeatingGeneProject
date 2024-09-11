@@ -1,0 +1,56 @@
+public enum State
+{
+    Moving,
+    SeekingFood,
+    Eating,
+    SeekingSleep,
+    Sleeping,
+    Mating,
+    Dead
+}
+
+public enum DietType
+{
+    Herbivore,
+    Carnivore,
+    Omnivore
+}
+
+public enum WeatherType
+{
+    Sunny,
+    Rainy,
+    Storm
+}
+
+public enum TerrainType
+{
+    Forest,
+    Desert,
+    Mountain
+}
+
+public class Emotion
+{
+    public void ReactToEvent(string eventTrigger)
+    {
+        Console.WriteLine("Emotion reacting to: " + eventTrigger);
+    }
+}
+
+public class Morality
+{
+    public void CommitAction(string action)
+    {
+        Console.WriteLine("Morality evaluating action: " + action);
+    }
+}
+
+public static class FoodChain
+{
+    public static bool CanEat(Creature predator, Creature prey)
+    {
+        // 捕食判定のロジック
+        return predator.dietType == DietType.Carnivore && prey.dietType != DietType.Carnivore;
+    }
+}

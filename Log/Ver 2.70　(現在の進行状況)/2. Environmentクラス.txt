@@ -1,0 +1,21 @@
+public class Environment
+{
+    public float temperature;
+    public float humidity;
+    public WeatherType weather;
+    public TerrainType terrain;
+
+    public Environment(float temp, float hum, WeatherType weatherType, TerrainType terrainType)
+    {
+        temperature = temp;
+        humidity = hum;
+        weather = weatherType;
+        terrain = terrainType;
+    }
+
+    public float GetResourceAvailability()
+    {
+        // 例: 資源の可用性をランダムで返す
+        return new Random().Next(0, 100) / 100f;
+    }
+}
