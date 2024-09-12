@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class SimulationManager : MonoBehaviour
 {
@@ -51,7 +52,7 @@ public class SimulationManager : MonoBehaviour
     private void Update()
     {
         // シミュレーションの1日分を実行
-        if (Time.frameCount % 60 == 0)
+        if (Time.frameCount % 10 == 0)
         {
             environment.SimulateDay();
 
@@ -68,10 +69,15 @@ public class SimulationManager : MonoBehaviour
             // 適応度を分析
             feedbackManager.AnalyzeAdaptation(environment.Temperature);
 
-            if (environment.SimulationDays>=environment.MaxSimulationDays)
+            if (environment.SimulationDays>=environment.MaxSimulationDays || (environment.IsError))
             {
+                if (environment.IsError)
+                {
+                    Debug.Log("エラーを検知しました");
+                }
                 // シミュレーション終了
                 this.enabled = false;
+                EditorApplication.isPlaying = false;
             }
         }
     }

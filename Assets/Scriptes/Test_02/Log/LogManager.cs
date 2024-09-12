@@ -49,6 +49,11 @@ public class LogManger
         {
             writer.WriteLine("\nDay Simulation Log:");
             writer.WriteLine("Resources:"+environment.ResourceAmount);
+            writer.WriteLine($"Day: {environment.SimulationDays}");
+            if (environment.IsError)
+            {
+                writer.WriteLine($"Error: ñ‚ëËî≠ê∂Å@\n{environment.ErrorStr}");
+            }
             foreach (var creature in environment.Creatures)
             {
                 writer.WriteLine($"{creature.Name}: Age = {creature.Age}, Energy = {creature.Energy}, Hunger = {creature.Hunger}");

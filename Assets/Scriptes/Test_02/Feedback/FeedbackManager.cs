@@ -1,13 +1,14 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
 public class FeedbackManager 
 {
-    private List<Creature> creatures;
+    private ConcurrentBag<Creature> creatures;
     private LogManger logManger;
 
-    public FeedbackManager(List<Creature> creatures,LogManger logManger)
+    public FeedbackManager(ConcurrentBag<Creature> creatures,LogManger logManger)
     {
         this.creatures = creatures;
         this.logManger = logManger;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 /// <summary>
 /// 環境クラス
@@ -10,16 +11,20 @@ public class Environment
     public int MaxSimulationDays { get; private set; }
     public float ResourceAmount { get; set; }
     public float Temperature { get; set; }
-    public List<Creature> Creatures { get; private set; }
+    public ConcurrentBag<Creature> Creatures { get; private set; }
     private Random random = new Random();
-    
+
+    // エラー
+    public string ErrorStr { get; set; }
+
+    public bool IsError { get; set; } = false;
     public Environment(float initialResources, int maxSimulationDays = 100)
     {
         SimulationDays  = 0;
         MaxSimulationDays = maxSimulationDays;
         ResourceAmount = initialResources;
         Temperature = 20f;
-        Creatures = new List<Creature>();
+        Creatures = new ConcurrentBag<Creature>();
     }
 
     public void AddCreature(Creature creature)
@@ -29,10 +34,9 @@ public class Environment
 
     public void RemoveCreature(Creature creature)
     {
-        if (Creatures.Contains(creature))
+        if (Creatures.Equals(creature))
         {
-            Creatures.Remove(creature);
-
+            Creatures.TryTake(out creature);
         }
     }
 
@@ -50,37 +54,45 @@ public class Environment
 
         var creaturesToRemove = new List<Creature>();
 
-        // 環境に合わせた行動
-        foreach (var creature in Creatures)
+        try
         {
-            creature.AgeUp();
-
-            if (creature.IsPredator)
+            // 環境に合わせた行動
+            foreach (var creature in Creatures)
             {
-                // 捕食者の行動
-                if (creature.Prey.Count>0)
+                creature.AgeUp();
+
+                if (creature.IsPredator)
                 {
-                    var prey = creature.Prey[random.Next(creature.Prey.Count)];
-                    creature.Eat(prey);
+                    // 捕食者の行動
+                    if (creature.Prey.Count > 0)
+                    {
+                        var prey = creature.Prey[random.Next(creature.Prey.Count)];
+                        creature.Eat(prey);
+                    }
                 }
-            }
-            creature.Reproduce(this);
-            creature.AdaptToEnvironment(Temperature);
+                creature.Reproduce(this);
+                creature.AdaptToEnvironment(Temperature);
 
-            if (creature.Age>=creature.Lifespan)
-            {
-                creaturesToRemove.Add(creature);
-            }
+                if (creature.Age >= creature.Lifespan)
+                {
+                    creaturesToRemove.Add(creature);
+                }
 
-            if (!creature.IsAlive())
-            {
-                Console.WriteLine($"{creature.Name} has died.");
-            }
+                if (!creature.IsAlive())
+                {
+                    Console.WriteLine($"{creature.Name} has died.");
+                }
 
-            // 繁殖チェック
-            creature.Reproduce(this);
-            // 進化
-            creature.AdaptToEnvironment(Temperature);
+                // 繁殖チェック
+                creature.Reproduce(this);
+                // 進化
+                creature.AdaptToEnvironment(Temperature);
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorStr = ex.Message;
+            IsError = true;
         }
         foreach (var creature in creaturesToRemove)
         {
