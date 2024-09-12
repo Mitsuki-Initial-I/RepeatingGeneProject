@@ -56,7 +56,7 @@ public class LogManger
             }
             foreach (var creature in environment.Creatures)
             {
-                writer.WriteLine($"{creature.Name}: Age = {creature.Age}, Energy = {creature.Energy}, Hunger = {creature.Hunger}");
+                writer.WriteLine($"{creature.Name}: Age = {creature.Age}, Energy = {creature.Energy}, Hunger = {creature.Hunger}, Lifespan = {creature.Lifespan}");
             }
         }
     }

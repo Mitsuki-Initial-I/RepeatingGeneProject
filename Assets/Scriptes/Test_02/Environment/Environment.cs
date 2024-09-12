@@ -34,10 +34,17 @@ public class Environment
 
     public void RemoveCreature(Creature creature)
     {
-        if (Creatures.Equals(creature))
+        var updatedCreatures = new List<Creature>();
+
+        foreach (var c in Creatures)
         {
-            Creatures.TryTake(out creature);
+            if (c!=creature)
+            {
+                updatedCreatures.Add(c);
+            }
         }
+
+        Creatures = new ConcurrentBag<Creature>(updatedCreatures);
     }
 
     public void SimulateDay()
