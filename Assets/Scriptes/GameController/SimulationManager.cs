@@ -9,13 +9,23 @@ public class SimulationManager : MonoBehaviour
     void Start()
     {
         logManager = new LogManager();
-        environment = new Environment();
+        environment = new Environment(0);
 
-        Villager farmer = new Villager("John", 30, "Farmer");
-        Villager hunter = new Villager("Jane", 25, "Hunter");
+        Villager villager1 = new Villager("John", 30, "”_‰Æ");
+       // Villager villager2 = new Villager("Jane", 25, "—Ât");
+       // Villager villager3 = new Villager("Jane", 25, "‹™t");
+        Villager villager4 = new Villager("Jane", 25, "‘åH");
+        Villager villager5 = new Villager("Jane", 25, "‘åH");
+        Villager villager6 = new Villager("Jane", 25, "‘åH");
+        Villager villager7 = new Villager("Jane", 25, "ˆãÒ");
 
-        environment.AddVillager(farmer);
-        environment.AddVillager(hunter);
+        environment.AddVillager(villager1);
+        //environment.AddVillager(villager2);
+        //environment.AddVillager(villager3);
+        environment.AddVillager(villager4);
+        environment.AddVillager(villager5);
+        environment.AddVillager(villager6);
+        environment.AddVillager(villager7);
 
         logManager.LogVillageState(environment);
     }
@@ -41,6 +51,7 @@ public class SimulationManager : MonoBehaviour
     private void EndSimulate()
     {
         logManager.LogMessage("ƒVƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“‚Í’â~‚µ‚Ü‚µ‚½B");
+        Debug.Log("ƒVƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“‚Í’â~‚µ‚Ü‚µ‚½B");
         this.enabled = false;
         EditorApplication.isPlaying = false;
     }

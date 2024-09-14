@@ -16,9 +16,9 @@ public class Environment
     public int SimulationDays { get; private set; }
     public int MaxSimulationDays { get; private set; }
 
-    public Environment(int maxSimulationDays=100)
+    public Environment(int food=100, int wood=50, int stone=30,int maxSimulationDays=100)
     {
-        Resources = new VillageResource(100, 50, 30);
+        Resources = new VillageResource(food, wood, stone);
         Villagers = new List<Villager>();
         SimulationDays = 0;
         MaxSimulationDays = maxSimulationDays;

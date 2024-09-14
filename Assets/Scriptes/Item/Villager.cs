@@ -23,27 +23,66 @@ public class Villager
 
     public void Work(Environment environment, LogManager logManager)
     {
-        if (!IsAlive)
+        if (!IsAlive || Energy<=0)
         {
+            Rest();
             return;
         }
 
-        if (Job=="Farmer")
+        switch (Job)
         {
-            environment.Resources.Food += 10;
-        }
-        else if (Job == "Hunter")
-        {
-            environment.Resources.Food += 5;
+            case "”_‰Æ":
+                environment.Resources.Food += 1;
+                break;
+            case "—ÂŽt":
+                environment.Resources.Food += 1;
+                break;
+            case "‘åH":
+                environment.Resources.Wood += 10;
+                break;
+            case "‹™Žt":
+                environment.Resources.Food += 1;
+                break;
+            case "ˆãŽÒ":
+                HealVillagers(environment, logManager);
+                break;
+            default:
+                break;
         }
 
-        Energy -= 10;
-        Hunger += 10;
+        Energy -= 20;
+        Hunger += 15;
 
         if (Hunger>=100)
         {
             IsAlive = false;
             logManager.LogMessage($"{Name}‚Í‰ìŽ€‚µ‚Ü‚µ‚½");
+        }
+    }
+
+    public void Rest()
+    {
+        Energy += 10;
+        Hunger += 5;
+    }
+    public void Eat(Environment environment)
+    {
+        if (environment.Resources.Food>0)
+        {
+            environment.Resources.Food -= 1;
+            Hunger -= 1;
+            Energy += 10;
+        }
+    }
+    private void HealVillagers(Environment environment,LogManager logManager)
+    {
+        foreach (var villager in environment.Villagers)
+        {
+            if (!villager.IsAlive&&villager.Hunger<50)
+            {
+                villager.IsAlive = true;
+                logManager.LogMessage($"{villager.Name}‚ÍŽ¡—Ã‚³‚ê‚Ü‚µ‚½B");
+            }
         }
     }
 }
