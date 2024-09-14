@@ -9,6 +9,7 @@ public class Villager
     public int Age { get; set; }
     public int Energy { get; set; }
     public int Hunger { get; set; }
+    public bool IsAlive { get; private set; }
 
     public Villager(string name, int age , string job)
     {
@@ -17,10 +18,16 @@ public class Villager
         Job = job;
         Energy = 100;
         Hunger = 0;
+        IsAlive = true;
     }
 
-    public void Work(Environment environment)
+    public void Work(Environment environment, LogManager logManager)
     {
+        if (!IsAlive)
+        {
+            return;
+        }
+
         if (Job=="Farmer")
         {
             environment.Resources.Food += 10;
@@ -32,5 +39,11 @@ public class Villager
 
         Energy -= 10;
         Hunger += 10;
+
+        if (Hunger>=100)
+        {
+            IsAlive = false;
+            logManager.LogMessage($"{Name}‚Í‰ìŽ€‚µ‚Ü‚µ‚½");
+        }
     }
 }
