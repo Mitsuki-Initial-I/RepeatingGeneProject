@@ -1,0 +1,14 @@
+{
+    "name": "RepeatingGaneProject.SceneTest",
+    "rootNamespace": "RepeatingGaneProject.SceneTest",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
